@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Locals</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #000;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtext {
+            font-size: 1.4rem;
+            color: #222;
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            text-align: center;
+            line-height: 1.6;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.0);
+            background: rgba(255, 255, 255, 1);
+            padding: 10px 15px;
+            border-radius: 8px;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            cursor: pointer;
+	    text-decoration: none;
+    	    display: inline-block;
+            text-align: center;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #ffffff;
+            color: #FF6B00;
+            border: 2px solid #FF6B00;
+        }
+
+        .btn-primary:hover {
+            background-color: #FF6B00;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #000;
+            color: white;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 0;
+        }
+
+        .social-media {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+	    z-index: 2; 
+        }
+
+        .social-icon {
+            width: 30px;
+            height: 30px;
+            background-size: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+	    display: block;
+    	    text-indent: -9999px; /* Hide text for screen readers */
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2);
+        }
+
+        .instagram {
+            background-image: url('https://img.icons8.com/color/48/000000/instagram-new.png');
+        }
+
+        .tiktok {
+            background-image: url('https://img.icons8.com/color/48/000000/tiktok.png');
+        }
+
+        .twitter {
+    		background-image: url('https://img.icons8.com/color/48/000000/twitter.png');
+	}
+
+        .mail {
+    background-image: url('https://img.icons8.com/color/48/000000/email.png'); /* This is the email icon from Icons8 */
+}
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="container">
+        <h1>Best Locals</h1>
+        <p class="subtext">Need a service? Book the best local service provider on the Best Locals App, <strong>THE BEST LOCAL APP</strong></p>
+        <div class="button-container">
+             <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=co.za.primebytestudios.runner">
+        Join As Service Provider
+    </a>
+    <a class="btn btn-secondary" href="https://play.google.com/store/apps/details?id=co.za.primebytestudios.finder">
+        Get App
+    </a>
+        </div>
+    </div>
+    <div class="social-media">
+        <a href="https://www.instagram.com/bestlocals.co.za/" target="_blank" class="social-icon instagram"></a>
+        <a href="https://www.tiktok.com/@bestlocals.co.za" target="_blank" class="social-icon tiktok"></a>
+        <a href="https://x.com/BestLocals_za" target="_blank" class="social-icon twitter"></a>
+        <a href="mailto://welcomegalane@gmail.com" target="_blank" class="social-icon mail"></a>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        class Dot {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = Math.random() * 1 - 0.5;
+                this.vy = Math.random() * 1 - 0.5;
+                this.radius = 3;
+                this.isOrange = Math.random() < 0.2; // 20% chance of being orange
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.isOrange ? '#FF6B00' : '#000';
+                ctx.fill();
+            }
+        }
+
+        const dots = Array.from({ length: 80 }, () => new Dot());
+
+        function drawLine(x1, y1, x2, y2) {
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.lineWidth = 1;
+            ctx.stroke();
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            dots.forEach(dot => {
+                dot.update();
+                dot.draw();
+            });
+
+            // Create connections
+            dots.forEach(dot1 => {
+                if (dot1.isOrange) {
+                    let connections = 0;
+                    dots.forEach(dot2 => {
+                        if (!dot2.isOrange) {
+                            const dx = dot1.x - dot2.x;
+                            const dy = dot1.y - dot2.y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+
+                            if (distance < 100) {
+                                drawLine(dot1.x, dot1.y, dot2.x, dot2.y);
+                            }
+                        }
+                    });
+                }
+            });
+
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+    </script>
+</body>
+</html>
