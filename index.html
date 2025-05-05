@@ -51,6 +51,7 @@
         .button-container {
             display: flex;
             gap: 20px;
+            flex-direction: row;
         }
 
         .btn {
@@ -58,8 +59,8 @@
             border-radius: 25px;
             font-size: 1.1rem;
             cursor: pointer;
-	    text-decoration: none;
-    	    display: inline-block;
+            text-decoration: none;
+            display: inline-block;
             text-align: center;
             transition: transform 0.3s ease, background-color 0.3s ease;
         }
@@ -100,7 +101,7 @@
             transform: translateX(-50%);
             display: flex;
             gap: 20px;
-	    z-index: 2; 
+            z-index: 2;
         }
 
         .social-icon {
@@ -109,8 +110,8 @@
             background-size: cover;
             cursor: pointer;
             transition: transform 0.3s ease;
-	    display: block;
-    	    text-indent: -9999px; /* Hide text for screen readers */
+            display: block;
+            text-indent: -9999px; /* Hide text for screen readers */
         }
 
         .social-icon:hover {
@@ -126,12 +127,30 @@
         }
 
         .twitter {
-    		background-image: url('https://img.icons8.com/color/48/000000/twitter.png');
-	}
+            background-image: url('https://img.icons8.com/color/48/000000/twitter.png');
+        }
 
         .mail {
-    background-image: url('https://img.icons8.com/color/48/000000/email.png'); /* This is the email icon from Icons8 */
-}
+            background-image: url('https://img.icons8.com/color/48/000000/email.png'); /* This is the email icon from Icons8 */
+        }
+
+        /* Media query for small devices */
+        @media (max-width: 768px) {
+            .button-container {
+                flex-direction: column; /* Stack the buttons vertically */
+                gap: 10px; /* Adjust the gap between buttons */
+            }
+
+            h1 {
+                font-size: 2.5rem; /* Smaller font size for small devices */
+            }
+
+            .subtext {
+                font-size: 1.2rem; /* Adjust text size for small screens */
+                margin-bottom: 1.5rem;
+            }
+        }
+
     </style>
 </head>
 <body>
